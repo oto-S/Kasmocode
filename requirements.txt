@@ -1,0 +1,5 @@
+# /home/johnb/tasma-code-absulut/requirements.txt
+# Nenhuma dependência externa necessária para Python padrão em Linux.
+# 'curses' já vem incluído na biblioteca padrão do Python em ambientes Unix.
+psutil
+matplotlib
