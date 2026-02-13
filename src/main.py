@@ -1104,3 +1104,6 @@ if __name__ == "__main__":
         pass
     except Exception as e:
         print(f"Ocorreu um erro fatal: {e}")
+
+
+

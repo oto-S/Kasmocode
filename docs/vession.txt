@@ -3,7 +3,10 @@ tasmacode 2026 13/feb/2026
 
 novidades:
 
-
+1. tasmastore 
+2. correção de erros 
 
 
 versão 
+
+0.1 aplha
