@@ -1,6 +1,6 @@
 def register(context):
     with open("../../docs/vssion.txt", "r", encoding="utf-8") as f:
-        context.version_data = f.read().strip()
+        context.version_data = f.read().read()
 
 
 #mais tarde irei faze o reto
