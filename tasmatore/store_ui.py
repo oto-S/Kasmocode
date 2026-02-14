@@ -58,7 +58,7 @@ class StoreUI:
 
         # Lista de Plugins
         list_y = 4
-        win.addstr(list_y, 2, "Plugins Instalados (Del para remover):", curses.A_BOLD)
+        win.addstr(list_y, 2, f"Plugins Instalados ({len(plugins)}):", curses.A_BOLD)
         
         list_start_y = list_y + 1
         list_available_h = win_h - list_start_y - 2
@@ -131,5 +131,5 @@ class StoreUI:
             win.addstr(cy, cx, msg)
             win.attroff(curses.A_REVERSE | curses.A_BOLD)
 
-        win.addstr(win_h - 2, 2, "Enter: Instalar | g: Repo | Esc: Sair", curses.A_DIM)
+        win.addstr(win_h - 2, 2, "Enter: Instalar | u: Atualizar | g: Repo | Del: Remover | Esc: Sair", curses.A_DIM)
         win.refresh()

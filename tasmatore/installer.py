@@ -104,3 +104,20 @@ class PluginInstaller:
                     return f.read().strip()
             except: pass
         return None
+
+    def update_plugin(self, plugin_name):
+        """Tenta atualizar o plugin via git pull."""
+        path = os.path.join(self.plugins_dir, plugin_name)
+        if not os.path.exists(os.path.join(path, ".git")):
+            return False, "Plugin não é um repositório Git (não pode atualizar)."
+        
+        try:
+            subprocess.run(
+                ["git", "-C", path, "pull"],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            return True, f"Plugin '{plugin_name}' atualizado com sucesso."
+        except Exception as e:
+            return False, f"Erro ao atualizar: {e}"

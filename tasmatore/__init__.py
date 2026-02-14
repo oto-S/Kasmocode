@@ -119,6 +119,17 @@ class TasmaStorePlugin:
                 else:
                     self.ui.status_msg = "Link do repositório não disponível."
 
+        elif key_code in (ord('u'), ord('U')) and self.focus == 'list':
+            if self.plugins:
+                plugin_name = self.plugins[self.selected_idx]['name']
+                self.ui.status_msg = f"Atualizando {plugin_name}..."
+                
+                def target():
+                    success, msg = self.installer.update_plugin(plugin_name)
+                    self.ui.status_msg = msg
+                
+                threading.Thread(target=target).start()
+
         elif key_code in (curses.KEY_DC, 330): # Delete Key
             if self.focus == 'list' and self.plugins:
                 self.confirm_delete_plugin = self.plugins[self.selected_idx]['name']
