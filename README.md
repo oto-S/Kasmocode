@@ -4,7 +4,7 @@
 <img width="1536" height="1024" alt="17712075122017428159238849490432" src="https://github.com/user-attachments/assets/4318e387-8e84-4343-b629-2899d5f86ed2" />
 
 
-O Tasma Code Editor é um editor de texto robusto baseado em terminal (TUI), desenvolvido em Python utilizando a biblioteca `curses`. Ele combina a leveza de editores de console com funcionalidades modernas de IDEs.
+O Kasmocode Editor é um editor de texto robusto baseado em terminal (TUI), desenvolvido em Python utilizando a biblioteca `curses`. Ele combina a leveza de editores de console com funcionalidades modernas de IDEs.
 
 ## Como Funciona
 
@@ -16,7 +16,7 @@ O sistema opera através de um loop principal (`main.py`) que orquestra a intera
 
 ## Sistema de Plugins Independentes
 
-O Tasma possui uma arquitetura modular que permite estender suas funcionalidades sem alterar o código-fonte principal. O sistema de plugins é projetado para ser **independente e desacoplado**.
+O Kasmocode possui uma arquitetura modular que permite estender suas funcionalidades sem alterar o código-fonte principal. O sistema de plugins é projetado para ser **independente e desacoplado**.
 
 ### Arquitetura
 
@@ -50,6 +50,5 @@ https://github.com/user-attachments/assets/8038a951-90a4-478d-9ab8-a7ef99f0c124
 
 ## contato
 
-tasmacode@protonmail.com
 
 ---
