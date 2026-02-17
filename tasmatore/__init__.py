@@ -19,6 +19,7 @@ class TasmaStorePlugin:
         self.ui = None
         self.installer = None
         self.plugins = []
+        self.all_plugins = [] # Armazena a lista completa para filtragem
         self.selected_idx = 0
         self.focus = 'input' # 'input' or 'list'
         self.confirm_delete_plugin = None
@@ -74,11 +75,27 @@ class TasmaStorePlugin:
 
     def refresh_plugins_list(self):
         names = self.installer.list_installed_plugins()
-        self.plugins = []
+        self.all_plugins = []
         for name in names:
             desc = self.installer.get_plugin_description(name)
             repo = self.installer.get_plugin_repository_link(name)
-            self.plugins.append({'name': name, 'desc': desc, 'repo': repo})
+            self.all_plugins.append({'name': name, 'desc': desc, 'repo': repo})
+        self.filter_plugins()
+
+    def filter_plugins(self):
+        """Filtra a lista de plugins com base no input."""
+        if not self.ui: return
+        query = self.ui.input_buffer.lower().strip()
+        
+        # Se for URL ou vazio, mostra tudo (URL é para instalação)
+        if not query or query.startswith("http"):
+            self.plugins = list(self.all_plugins)
+        else:
+            self.plugins = [
+                p for p in self.all_plugins 
+                if query in p['name'].lower() or (p.get('desc') and query in p['desc'].lower())
+            ]
+        self.selected_idx = 0
 
     def handle_input(self, key):
         if self.ui.is_loading:
@@ -142,17 +159,23 @@ class TasmaStorePlugin:
 
         elif key_code in (10, 13): # Enter
             if self.focus == 'input' and self.ui.input_buffer:
-                self.start_install(self.ui.input_buffer.strip())
+                text = self.ui.input_buffer.strip()
+                if text.startswith("http"):
+                    self.start_install(text)
+                elif self.plugins:
+                    self.focus = 'list' # Se não for URL, enter vai para a lista filtrada
             elif self.focus == 'list':
                 pass # Futuro: Abrir detalhes do plugin?
         
         elif key_code in (curses.KEY_BACKSPACE, 127, 8):
             if self.focus == 'input':
                 self.ui.input_buffer = self.ui.input_buffer[:-1]
+                self.filter_plugins()
             
         elif isinstance(key, str) and key.isprintable():
             if self.focus == 'input':
                 self.ui.input_buffer += key
+                self.filter_plugins()
         
         # Suporte a Ctrl+V (Paste) se o terminal enviar bytes padrão (ASCII 22)
         elif key_code == 22:
