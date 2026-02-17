@@ -82,18 +82,15 @@ class HelpWindow:
         return command_map
 
     def run(self):
-        """Exibe a janela e espera pela tecla Esc para fechar."""
-        original_timeout = self.ui.stdscr.gettimeout()
+        """Exibe a janela e espera pela tecla Esc para fechar."""        
         self.ui.stdscr.timeout(-1) # Ensure blocking input
-        try:
-            self.draw()
-            while True:
-                key = self.ui.get_input()
-                key_code = key if isinstance(key, int) else (ord(key) if isinstance(key, str) else -1)
-                if key_code == 27: # Esc
-                    break
-        finally:
-            self.ui.stdscr.timeout(original_timeout)
+        self.draw()
+        while True:
+            key = self.ui.get_input()
+            key_code = key if isinstance(key, int) else (ord(key) if isinstance(key, str) else -1)
+            if key_code == 27: # Esc
+                break
+        # main.py will reset timeout on next iteration
 
     def draw(self):
         h, w = self.ui.height, self.ui.width
